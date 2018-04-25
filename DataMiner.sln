@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataMiner", "DataMiner\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataMiner.Clustering", "DataMiner.Clustering\DataMiner.Clustering.csproj", "{134A4BBE-6375-48E9-9550-06FA06275D7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataMiner.Utils", "DataMiner.Utils\DataMiner.Utils.csproj", "{4D10B0B5-0560-478E-98A2-ABCFDAAA384D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{134A4BBE-6375-48E9-9550-06FA06275D7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{134A4BBE-6375-48E9-9550-06FA06275D7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{134A4BBE-6375-48E9-9550-06FA06275D7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D10B0B5-0560-478E-98A2-ABCFDAAA384D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D10B0B5-0560-478E-98A2-ABCFDAAA384D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D10B0B5-0560-478E-98A2-ABCFDAAA384D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D10B0B5-0560-478E-98A2-ABCFDAAA384D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
