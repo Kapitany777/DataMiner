@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataMiner.Utils", "DataMine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataMiner.ClusterDataReaders", "DataMiner.ClusterDataReaders\DataMiner.ClusterDataReaders.csproj", "{556C1613-CC02-42B8-8527-F6983A204A25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataMiner.Charts", "DataMiner.Charts\DataMiner.Charts.csproj", "{56CFBB1E-1E09-428E-B2F1-A5CDD52C876A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{556C1613-CC02-42B8-8527-F6983A204A25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{556C1613-CC02-42B8-8527-F6983A204A25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{556C1613-CC02-42B8-8527-F6983A204A25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56CFBB1E-1E09-428E-B2F1-A5CDD52C876A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56CFBB1E-1E09-428E-B2F1-A5CDD52C876A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56CFBB1E-1E09-428E-B2F1-A5CDD52C876A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56CFBB1E-1E09-428E-B2F1-A5CDD52C876A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
