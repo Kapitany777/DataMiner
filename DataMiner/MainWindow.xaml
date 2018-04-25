@@ -5,10 +5,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataMiner"
         mc:Ignorable="d"
-        Title="Data Miner" Icon="dataminer.ico"
+        Title="Data Miner -" Icon="dataminer.ico"
         Style="{StaticResource MainWindowStyle}">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
+        <Menu Style="{StaticResource MainMenuStyle}" Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Name="MenuOpen" Header="Open file" Click="MenuOpen_Click" />
+                <Separator />
+                <MenuItem Name="MenuExit" Header="Exit" Click="MenuExit_Click" />
+            </MenuItem>
+        </Menu>
+
+        <StackPanel Name="StackPanelStatistics" Grid.Row="1">
+            <Grid Name="GridXStatistics" Style="{StaticResource GridStatistics}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Min X = " Grid.Column="0" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="{Binding MinX, StringFormat=N3}" Grid.Column="1" Style="{StaticResource TextBlockStatistics}" />
+
+                <TextBlock Text="Max X = " Grid.Column="2" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="{Binding MaxX, StringFormat=N3}" Grid.Column="3" Style="{StaticResource TextBlockStatistics}" />
+
+                <TextBlock Text="Range X = " Grid.Column="4" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="{Binding RangeX, StringFormat=N3}" Grid.Column="5" Style="{StaticResource TextBlockStatistics}" />
+
+                <TextBlock Text="Average X = " Grid.Column="6" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="{Binding AvgX, StringFormat=N3}" Grid.Column="7" Style="{StaticResource TextBlockStatistics}" />
+
+                <TextBlock Text="Std.dev X = " Grid.Column="8" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="{Binding StdDevX, StringFormat=N3}" Grid.Column="9" Style="{StaticResource TextBlockStatistics}" />
+            </Grid>
+
+            <Grid Name="GridYStatistics" Style="{StaticResource GridStatistics}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Min Y = " Grid.Column="0" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="{Binding MinY, StringFormat=N3}" Grid.Column="1" Style="{StaticResource TextBlockStatistics}" />
+
+                <TextBlock Text="Max Y = " Grid.Column="2" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="{Binding MaxY, StringFormat=N3}" Grid.Column="3" Style="{StaticResource TextBlockStatistics}" />
+
+                <TextBlock Text="Range Y = " Grid.Column="4" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="{Binding RangeY, StringFormat=N3}" Grid.Column="5" Style="{StaticResource TextBlockStatistics}" />
+
+                <TextBlock Text="Average Y = " Grid.Column="6" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="{Binding AvgY, StringFormat=N3}" Grid.Column="7" Style="{StaticResource TextBlockStatistics}" />
+
+                <TextBlock Text="Std.dev Y = " Grid.Column="8" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="{Binding StdDevY, StringFormat=N3}" Grid.Column="9" Style="{StaticResource TextBlockStatistics}" />
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>

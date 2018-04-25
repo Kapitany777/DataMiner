@@ -106,9 +106,17 @@
     <Resource Include="dataminer.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataMiner.ClusterDataReaders\DataMiner.ClusterDataReaders.csproj">
+      <Project>{556c1613-cc02-42b8-8527-f6983a204a25}</Project>
+      <Name>DataMiner.ClusterDataReaders</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataMiner.Clustering\DataMiner.Clustering.csproj">
       <Project>{134a4bbe-6375-48e9-9550-06fa06275d7f}</Project>
       <Name>DataMiner.Clustering</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataMiner.Utils\DataMiner.Utils.csproj">
+      <Project>{4d10b0b5-0560-478e-98a2-abcfdaaa384d}</Project>
+      <Name>DataMiner.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

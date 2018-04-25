@@ -10,6 +10,8 @@ namespace DataMiner.Clustering
     {
         public double X { get; private set; }
         public double Y { get; private set; }
+        public double XT { get; set; }
+        public double YT { get; set; }
         public int ClusterNumber { get; private set; }
 
         public ClusterPoint(double x, double y)
