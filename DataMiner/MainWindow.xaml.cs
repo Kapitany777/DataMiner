@@ -68,5 +68,20 @@ namespace DataMiner
         {
             this.Close();
         }
+
+        private void ButtonClustering_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                clusterData.NormalizePoints();
+                AlgorithmKMeans alg = new AlgorithmKMeans(clusterData, 3);
+                alg.Run();
+                MessageBox.Show("Ready...");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }

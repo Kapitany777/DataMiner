@@ -10,6 +10,7 @@ namespace DataMiner.Clustering
     public class ClusterData
     {
         public List<ClusterPoint> Points { get; set; }
+        public List<ClusterPoint> Centroids { get; set; }
 
         public double MinX => Points.Min(p => p.X);
         public double MaxX => Points.Max(p => p.X);
@@ -56,7 +57,7 @@ namespace DataMiner.Clustering
             Points.Add(point);
         }
 
-        public void Normalize()
+        public void NormalizePoints()
         {
             double minX = MinX;
             double maxX = MaxX;
@@ -64,6 +65,20 @@ namespace DataMiner.Clustering
             double maxY = MaxY;
 
             foreach (ClusterPoint p in Points)
+            {
+                p.XT = (p.X - minX) / (maxX - minX);
+                p.YT = (p.Y - minY) / (maxY - minY);
+            }
+        }
+
+        public void NormalizeCentroids()
+        {
+            double minX = MinX;
+            double maxX = MaxX;
+            double minY = MinY;
+            double maxY = MaxY;
+
+            foreach (ClusterPoint p in Centroids)
             {
                 p.XT = (p.X - minX) / (maxX - minX);
                 p.YT = (p.Y - minY) / (maxY - minY);
@@ -79,5 +94,8 @@ namespace DataMiner.Clustering
         {
             return new ClusterData(Points.Where(p => p.ClusterNumber == number).ToList());
         }
+
+        public double AverageX(int number) => Points.Where(p => p.ClusterNumber == number).Average(p => p.X);
+        public double AverageY(int number) => Points.Where(p => p.ClusterNumber == number).Average(p => p.Y);
     }
 }

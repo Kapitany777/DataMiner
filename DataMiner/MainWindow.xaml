@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataMiner"
         mc:Ignorable="d"
-        Title="Data Miner -" Icon="dataminer.ico"
+        Title="Data Miner" Icon="dataminer.ico"
         Style="{StaticResource MainWindowStyle}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -83,5 +84,7 @@
                 <TextBlock Text="{Binding StdDevY, StringFormat=N3}" Grid.Column="9" Style="{StaticResource TextBlockStatistics}" />
             </Grid>
         </StackPanel>
+
+        <Button Name="ButtonClustering" Content="Run K-Means Algorithm" Click="ButtonClustering_Click" Grid.Row="2" />
     </Grid>
 </Window>
