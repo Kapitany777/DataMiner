@@ -45,6 +45,7 @@ namespace DataMiner.Clustering
         public ClusterData()
         {
             Points = new List<ClusterPoint>();
+            Centroids = new List<ClusterPoint>();
         }
 
         public ClusterData(List<ClusterPoint> points)

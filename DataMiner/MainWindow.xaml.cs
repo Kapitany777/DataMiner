@@ -1,4 +1,5 @@
-﻿using DataMiner.ClusterDataReaders;
+﻿using DataMiner.Charts;
+using DataMiner.ClusterDataReaders;
 using DataMiner.Clustering;
 using DataMiner.Utils;
 using Microsoft.Win32;
@@ -34,7 +35,7 @@ namespace DataMiner
         private void LoadFile()
         {
             OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "CSV files (*.csv)|*.csv";
+            dlg.Filter = "CSV files (*.csv)|*.csv|TXT files (*.txt)|*.txt";
 
             if (dlg.ShowDialog() == true)
             {
@@ -49,6 +50,11 @@ namespace DataMiner
 
                 GridXStatistics.DataContext = clusterData;
                 GridYStatistics.DataContext = clusterData;
+
+                clusterData.NormalizePoints();
+
+                PointChart.Data = clusterData;
+                PointChart.Draw();
             }
         }
 
@@ -69,14 +75,50 @@ namespace DataMiner
             this.Close();
         }
 
+        private Func<ClusterPoint, ClusterPoint, double> GetDistanceFunction()
+        {
+            Func<ClusterPoint, ClusterPoint, double> distanceFunction = Distance.Euclidean;
+
+            switch (ComboBoxDistance.SelectedIndex)
+            {
+                case 0:
+                    distanceFunction = Distance.Euclidean;
+                    break;
+
+                case 1:
+                    distanceFunction = Distance.SquaredEuclidean;
+                    break;
+
+                case 2:
+                    distanceFunction = Distance.Manhattan;
+                    break;
+
+                case 3:
+                    distanceFunction = Distance.Chebyshev;
+                    break;
+
+                default:
+                    distanceFunction = Distance.Euclidean;
+                    break;
+            }
+
+            return distanceFunction;
+        }
+
         private void ButtonClustering_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                clusterData.NormalizePoints();
-                AlgorithmKMeans alg = new AlgorithmKMeans(clusterData, 3);
+                AlgorithmKMeans alg = new AlgorithmKMeans(clusterData, int.Parse(TextBoxNumberOfClusters.Text));
+
+                alg.DistanceFunction = GetDistanceFunction();
+
+                alg.MaxIterations = int.Parse(TextBoxMaximumIterations.Text);
+
                 alg.Run();
-                MessageBox.Show("Ready...");
+
+                PointChart.Data = clusterData;
+                PointChart.Draw();
             }
             catch (Exception ex)
             {

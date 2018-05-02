@@ -19,6 +19,9 @@ namespace DataMiner.ClusterDataReaders
                 case ".csv":
                     return new CsvDataReader(fileName, clusterData);
 
+                case ".txt":
+                    return new TxtDataReader(fileName, clusterData);
+
                 default:
                     return null;
             }

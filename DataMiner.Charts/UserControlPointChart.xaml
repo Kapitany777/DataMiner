@@ -6,7 +6,12 @@
              xmlns:local="clr-namespace:DataMiner.Charts"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
+    <Grid Background="#404040">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
+        <Canvas Name="CanvasChart" Grid.Row="0" Margin="10" />
     </Grid>
 </UserControl>

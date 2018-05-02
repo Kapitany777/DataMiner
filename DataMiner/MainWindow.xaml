@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataMiner"
+        xmlns:chart="clr-namespace:DataMiner.Charts;assembly=DataMiner.Charts"
         mc:Ignorable="d"
         Title="Data Miner" Icon="dataminer.ico"
         Style="{StaticResource MainWindowStyle}">
@@ -85,6 +86,30 @@
             </Grid>
         </StackPanel>
 
-        <Button Name="ButtonClustering" Content="Run K-Means Algorithm" Click="ButtonClustering_Click" Grid.Row="2" />
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <TextBlock Text="Algorithm: " Style="{StaticResource TextBlockAlgorithm}" />
+            <ComboBox Name="ComboBoxAlgorithm" SelectedIndex="0" Style="{StaticResource ComboBoxAlgorithm}">
+                <ComboBoxItem Content="K-Means Algorithm"/>
+            </ComboBox>
+
+            <TextBlock Text="Distance function: " Style="{StaticResource TextBlockAlgorithm}" />
+            <ComboBox Name="ComboBoxDistance" SelectedIndex="0" Style="{StaticResource ComboBoxAlgorithm}">
+                <ComboBoxItem Content="Euclidean" />
+                <ComboBoxItem Content="Squared Euclidean" />
+                <ComboBoxItem Content="Manhattan" />
+                <ComboBoxItem Content="Chebyshev" />
+            </ComboBox>
+
+            <TextBlock Text="Number of clusters: " Style="{StaticResource TextBlockAlgorithm}" />
+            <TextBox Name="TextBoxNumberOfClusters" Text="3" Style="{StaticResource TextBoxAlgorithm}" />
+
+            <TextBlock Text="Maximum iterations: " Style="{StaticResource TextBlockAlgorithm}" />
+            <TextBox Name="TextBoxMaximumIterations" Text="20" Style="{StaticResource TextBoxAlgorithm}" />
+
+            <Button Name="ButtonClustering" Content="Run Algorithm" Click="ButtonClustering_Click" Style="{StaticResource ButtonAlgorithm}" />
+        </StackPanel>
+
+
+        <chart:UserControlPointChart Name="PointChart" Grid.Row="3" />
     </Grid>
 </Window>

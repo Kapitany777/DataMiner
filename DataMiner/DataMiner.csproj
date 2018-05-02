@@ -106,6 +106,10 @@
     <Resource Include="dataminer.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataMiner.Charts\DataMiner.Charts.csproj">
+      <Project>{56cfbb1e-1e09-428e-b2f1-a5cdd52c876a}</Project>
+      <Name>DataMiner.Charts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataMiner.ClusterDataReaders\DataMiner.ClusterDataReaders.csproj">
       <Project>{556c1613-cc02-42b8-8527-f6983a204a25}</Project>
       <Name>DataMiner.ClusterDataReaders</Name>

@@ -81,6 +81,12 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataMiner.Clustering\DataMiner.Clustering.csproj">
+      <Project>{134a4bbe-6375-48e9-9550-06fa06275d7f}</Project>
+      <Name>DataMiner.Clustering</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
