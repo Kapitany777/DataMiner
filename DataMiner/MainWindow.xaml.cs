@@ -125,7 +125,7 @@ namespace DataMiner
                 PointChart.Data = clusterData;
                 PointChart.Draw();
 
-                DataGridClusterStats.ItemsSource = alg.GetClusterStatistics();
+                DataGridClusterStats.ItemsSource = clusterData.GetClusterStatistics();
             }
             catch (NullReferenceException)
             {

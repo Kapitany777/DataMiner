@@ -146,7 +146,20 @@
             </TabItem>
 
             <TabItem Header="Cluster stats" Style="{StaticResource TabItemStyle}">
-                <DataGrid Name="DataGridClusterStats" />
+                <DataGrid Name="DataGridClusterStats" Style="{StaticResource DataGridClusterStats}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Cluster number" Binding="{Binding ClusterNumber}" />
+                        <DataGridTextColumn Header="Number of points" Binding="{Binding ClusterCount}" />
+                        <DataGridTextColumn Header="Min X" Binding="{Binding MinX, StringFormat=N3}" />
+                        <DataGridTextColumn Header="Max X" Binding="{Binding MaxX, StringFormat=N3}" />
+                        <DataGridTextColumn Header="Average X" Binding="{Binding AverageX, StringFormat=N3}" />
+                        <DataGridTextColumn Header="Std.dev X" Binding="{Binding StdDevX, StringFormat=N3}" />
+                        <DataGridTextColumn Header="Min Y" Binding="{Binding MinY, StringFormat=N3}" />
+                        <DataGridTextColumn Header="Max Y" Binding="{Binding MaxY, StringFormat=N3}" />
+                        <DataGridTextColumn Header="Average Y" Binding="{Binding AverageY, StringFormat=N3}" />
+                        <DataGridTextColumn Header="Std.dev Y" Binding="{Binding StdDevY, StringFormat=N3}" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
         </TabControl>
     </Grid>

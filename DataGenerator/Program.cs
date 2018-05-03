@@ -73,11 +73,23 @@ namespace DataGenerator
             }
         }
 
+        static void DataGenerator4()
+        {
+            Random rnd = new Random();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                Console.WriteLine($"{rnd.Next(100) + 10},{rnd.Next(100) + 10}");
+            }
+        }
+
         static void Main(string[] args)
         {
+            // This program is not the part of the main project...
             //DataGenerator1();
             //DataGenerator2();
-            DataGenerator3();
+            //DataGenerator3();
+            DataGenerator4();
         }
     }
 }

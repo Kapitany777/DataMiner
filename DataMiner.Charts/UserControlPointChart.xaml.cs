@@ -23,7 +23,7 @@ namespace DataMiner.Charts
     {
         public ClusterData Data { get; set; }
 
-        private static Color[] colors =
+        private List<Color> colors = new List<Color>
         {
             Colors.Black,
             Colors.Blue,
@@ -45,6 +45,19 @@ namespace DataMiner.Charts
         public UserControlPointChart()
         {
             InitializeComponent();
+
+            AddColors();
+        }
+        
+        private void AddColors()
+        {
+            for (int i = 0; i < 85; i++)
+            {
+                byte r = (byte)((i % 4) * 60);
+                byte g = (byte)(i * 2);
+                byte b = (byte)((i % 2) * 100);
+                colors.Add(Color.FromRgb(r, g, b));
+            }
         }
 
         public void Draw()

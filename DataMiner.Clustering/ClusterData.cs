@@ -12,6 +12,8 @@ namespace DataMiner.Clustering
         public List<ClusterPoint> Points { get; set; }
         public List<ClusterPoint> Centroids { get; set; }
 
+        public int Count => Points.Count;
+
         public double MinX => Points.Min(p => p.X);
         public double MaxX => Points.Max(p => p.X);
         public double RangeX => MaxX - MinX;
@@ -23,8 +25,18 @@ namespace DataMiner.Clustering
         public double RangeY => MaxY - MinY;
         public double AvgY => Points.Average(p => p.Y);
         public double StdDevY => Sqrt(VarY);
+        
+        public int ClusterCount(int number) => Points.Where(p => p.ClusterNumber == number).Count();
 
-        public int Count => Points.Count;
+        public double ClusterMinX(int number) => Points.Where(p => p.ClusterNumber == number).Min(p => p.X);
+        public double ClusterMaxX(int number) => Points.Where(p => p.ClusterNumber == number).Max(p => p.X);
+        public double ClusterAvgX(int number) => Points.Where(p => p.ClusterNumber == number).Average(p => p.X);
+        public double ClusterStdDevX(int number) => Sqrt(ClusterVarX(number));
+
+        public double ClusterMinY(int number) => Points.Where(p => p.ClusterNumber == number).Min(p => p.Y);
+        public double ClusterMaxY(int number) => Points.Where(p => p.ClusterNumber == number).Max(p => p.Y);
+        public double ClusterAvgY(int number) => Points.Where(p => p.ClusterNumber == number).Average(p => p.Y);
+        public double ClusterStdDevY(int number) => Sqrt(ClusterVarY(number));
 
         public double VarX
         {
@@ -42,6 +54,30 @@ namespace DataMiner.Clustering
                 double mean = AvgY;
                 return Points.Sum(p => (p.Y - mean) * (p.Y - mean)) / Points.Count;
             }
+        }
+
+        public double ClusterVarX(int number)
+        {
+            if (ClusterCount(number) == 0)
+            {
+                return 0;
+            }
+
+            double mean = ClusterAvgX(number);
+
+            return Points.Where(p => p.ClusterNumber == number).Sum(p => (p.X - mean) * (p.X - mean)) / ClusterCount(number);
+        }
+
+        public double ClusterVarY(int number)
+        {
+            if (ClusterCount(number) == 0)
+            {
+                return 0;
+            }
+
+            double mean = ClusterAvgY(number);
+
+            return Points.Where(p => p.ClusterNumber == number).Sum(p => (p.Y - mean) * (p.Y - mean)) / ClusterCount(number);
         }
 
         public ClusterData()
@@ -96,18 +132,28 @@ namespace DataMiner.Clustering
             }
         }
 
-        public List<int> GetClusterNumbers()
+        public List<ClusterStatistics> GetClusterStatistics()
         {
-            return Points.Select(p => p.ClusterNumber).Distinct().ToList();
-        }
+            List<ClusterStatistics> stat = new List<ClusterStatistics>();
 
-        public ClusterData GetClusterData(int number)
-        {
-            return new ClusterData(Points.Where(p => p.ClusterNumber == number).ToList());
-        }
+            for (int i = 0; i < Centroids.Count; i++)
+            {
+                stat.Add(new ClusterStatistics
+                {
+                    ClusterNumber = i,
+                    ClusterCount = ClusterCount(i),
+                    MinX = ClusterMinX(i),
+                    MaxX = ClusterMaxX(i),
+                    AverageX = ClusterAvgX(i),
+                    StdDevX = ClusterStdDevX(i),
+                    MinY = ClusterMinY(i),
+                    MaxY = ClusterMaxY(i),
+                    AverageY = ClusterAvgY(i),
+                    StdDevY = ClusterStdDevY(i),
+                });
+            }
 
-        public int ClusterCount(int number) => Points.Where(p => p.ClusterNumber == number).Count();
-        public double AverageX(int number) => Points.Where(p => p.ClusterNumber == number).Average(p => p.X);
-        public double AverageY(int number) => Points.Where(p => p.ClusterNumber == number).Average(p => p.Y);
+            return stat;
+        }
     }
 }

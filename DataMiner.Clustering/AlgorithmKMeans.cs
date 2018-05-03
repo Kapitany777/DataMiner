@@ -70,12 +70,13 @@ namespace DataMiner.Clustering
                 // Recalculate centroids
                 for (int j = 0; j < this.K; j++)
                 {
-                    clusterData.Centroids[j].X = clusterData.AverageX(j);
-                    clusterData.Centroids[j].Y = clusterData.AverageY(j);
+                    clusterData.Centroids[j].X = clusterData.ClusterAvgX(j);
+                    clusterData.Centroids[j].Y = clusterData.ClusterAvgY(j);
                 }
 
                 clusterData.NormalizeCentroids();
 
+                // Calculate the error
                 double sumOfErrors = this.SumOfErrors();
                 double sumOfSquaredErrors2 = this.SumOfSquaredErrors();
                 Iteration?.Invoke(this, new AlgorithmEventArgs(i, sumOfErrors, sumOfSquaredErrors2));
@@ -113,24 +114,6 @@ namespace DataMiner.Clustering
             }
 
             return sum;
-        }
-
-        public List<ClusterStatistics> GetClusterStatistics()
-        {
-            List<ClusterStatistics> stat = new List<ClusterStatistics>();
-
-            for (int i = 0; i < this.K; i++)
-            {
-                stat.Add(new ClusterStatistics
-                {
-                    ClusterNumber = i,
-                    ClusterCount = clusterData.ClusterCount(i),
-                    AverageX = clusterData.AverageX(i),
-                    AverageY = clusterData.AverageY(i)
-                });
-            }
-
-            return stat;
         }
     }
 }

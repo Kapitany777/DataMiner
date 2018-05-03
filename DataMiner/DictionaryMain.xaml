@@ -59,4 +59,9 @@
         <Setter Property="IsReadOnly" Value="True" />
         <Setter Property="AcceptsReturn" Value="True" />
     </Style>
+
+    <Style x:Key="DataGridClusterStats" TargetType="DataGrid">
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="AutoGenerateColumns" Value="False" />
+    </Style>
 </ResourceDictionary>
