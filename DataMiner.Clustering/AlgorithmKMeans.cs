@@ -12,6 +12,8 @@ namespace DataMiner.Clustering
         public int MaxIterations { get; set; }
         public Func<ClusterPoint, ClusterPoint, double> DistanceFunction { get; set; }
 
+        public event AlgorithmEventHandler Iteration;
+
         private ClusterData clusterData;
         
         public AlgorithmKMeans(ClusterData clusterData, int k)
@@ -38,7 +40,10 @@ namespace DataMiner.Clustering
 
         public void Run()
         {
+            clusterData.Reset();
             InitializeCentroids();
+
+            double sumOfSquaredErrors1 = this.SumOfSquaredErrors();
 
             for (int i = 0; i < this.MaxIterations; i++)
             {
@@ -70,7 +75,62 @@ namespace DataMiner.Clustering
                 }
 
                 clusterData.NormalizeCentroids();
+
+                double sumOfErrors = this.SumOfErrors();
+                double sumOfSquaredErrors2 = this.SumOfSquaredErrors();
+                Iteration?.Invoke(this, new AlgorithmEventArgs(i, sumOfErrors, sumOfSquaredErrors2));
+
+                if (sumOfSquaredErrors1 == sumOfSquaredErrors2)
+                {
+                    break;
+                }
+                else
+                {
+                    sumOfSquaredErrors1 = sumOfSquaredErrors2;
+                }
             }
+        }
+
+        public double SumOfErrors()
+        {
+            double sum = 0;
+
+            foreach (ClusterPoint point in clusterData.Points)
+            {
+                sum += DistanceFunction(point, clusterData.Centroids[point.ClusterNumber]);
+            }
+
+            return sum;
+        }
+
+        public double SumOfSquaredErrors()
+        {
+            double sum = 0;
+
+            foreach (ClusterPoint point in clusterData.Points)
+            {
+                sum += Distance.SquaredEuclidean(point, clusterData.Centroids[point.ClusterNumber]);
+            }
+
+            return sum;
+        }
+
+        public List<ClusterStatistics> GetClusterStatistics()
+        {
+            List<ClusterStatistics> stat = new List<ClusterStatistics>();
+
+            for (int i = 0; i < this.K; i++)
+            {
+                stat.Add(new ClusterStatistics
+                {
+                    ClusterNumber = i,
+                    ClusterCount = clusterData.ClusterCount(i),
+                    AverageX = clusterData.AverageX(i),
+                    AverageY = clusterData.AverageY(i)
+                });
+            }
+
+            return stat;
         }
     }
 }

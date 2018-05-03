@@ -48,6 +48,8 @@ namespace DataMiner
                     WPFMessageBox.MsgError("Hiba történt a file betöltése során!");
                 }
 
+                TextBlockFileName.Text = dlg.FileName;
+                GridAllStatistics.DataContext = clusterData;
                 GridXStatistics.DataContext = clusterData;
                 GridYStatistics.DataContext = clusterData;
 
@@ -63,6 +65,8 @@ namespace DataMiner
             try
             {
                 LoadFile();
+                TextBoxLog.Clear();
+                DataGridClusterStats.ItemsSource = null;
             }
             catch (Exception ex)
             {
@@ -107,22 +111,53 @@ namespace DataMiner
 
         private void ButtonClustering_Click(object sender, RoutedEventArgs e)
         {
+            TextBoxLog.Clear();
+
             try
             {
                 AlgorithmKMeans alg = new AlgorithmKMeans(clusterData, int.Parse(TextBoxNumberOfClusters.Text));
-
                 alg.DistanceFunction = GetDistanceFunction();
-
                 alg.MaxIterations = int.Parse(TextBoxMaximumIterations.Text);
+                alg.Iteration += Alg_Iteration;
 
                 alg.Run();
 
                 PointChart.Data = clusterData;
                 PointChart.Draw();
+
+                DataGridClusterStats.ItemsSource = alg.GetClusterStatistics();
+            }
+            catch (NullReferenceException)
+            {
+                WPFMessageBox.MsgError("Empty dataset, please load a datafile.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                WPFMessageBox.MsgError("An error occured!", ex);
+            }
+        }
+
+        private void Alg_Iteration(object sender, AlgorithmEventArgs e)
+        {
+            string log = $"Iteration: {e.IterationNumber}, Sum of errors: {e.SumOfErrors}, Sum of squared errors: {e.SumOfSquaredErrors}";
+            TextBoxLog.AppendText(log + Environment.NewLine);
+        }
+
+        private void TextBoxNumber_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox)
+            {
+                TextBox tb = sender as TextBox;
+
+                if (!string.IsNullOrEmpty(tb.Text))
+                {
+                    int a;
+
+                    if (!int.TryParse(tb.Text, out a))
+                    {
+                        WPFMessageBox.MsgError("Number format error!");
+                    }
+                }
             }
         }
     }

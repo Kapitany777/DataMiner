@@ -24,6 +24,8 @@ namespace DataMiner.Clustering
         public double AvgY => Points.Average(p => p.Y);
         public double StdDevY => Sqrt(VarY);
 
+        public int Count => Points.Count;
+
         public double VarX
         {
             get
@@ -56,6 +58,14 @@ namespace DataMiner.Clustering
         public void Add(ClusterPoint point)
         {
             Points.Add(point);
+        }
+
+        public void Reset()
+        {
+            foreach (ClusterPoint point in Points)
+            {
+                point.ClusterNumber = 0;
+            }
         }
 
         public void NormalizePoints()
@@ -96,6 +106,7 @@ namespace DataMiner.Clustering
             return new ClusterData(Points.Where(p => p.ClusterNumber == number).ToList());
         }
 
+        public int ClusterCount(int number) => Points.Where(p => p.ClusterNumber == number).Count();
         public double AverageX(int number) => Points.Where(p => p.ClusterNumber == number).Average(p => p.X);
         public double AverageY(int number) => Points.Where(p => p.ClusterNumber == number).Average(p => p.Y);
     }

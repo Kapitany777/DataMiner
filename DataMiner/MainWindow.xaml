@@ -7,9 +7,10 @@
         xmlns:chart="clr-namespace:DataMiner.Charts;assembly=DataMiner.Charts"
         mc:Ignorable="d"
         Title="Data Miner" Icon="dataminer.ico"
-        Style="{StaticResource MainWindowStyle}">
+        Style="{StaticResource MainWindowStyle}" Width="1253.203">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -20,11 +21,37 @@
             <MenuItem Header="File">
                 <MenuItem Name="MenuOpen" Header="Open file" Click="MenuOpen_Click" />
                 <Separator />
-                <MenuItem Name="MenuExit" Header="Exit" Click="MenuExit_Click" />
+                <MenuItem Name="MenuExit" Header="Exit program" Click="MenuExit_Click" />
             </MenuItem>
         </Menu>
 
-        <StackPanel Name="StackPanelStatistics" Grid.Row="1">
+        <ToolBar Grid.Row="1">
+            <Button Name="ButtonOpenFile" ToolTip="Open file" Click="MenuOpen_Click">
+                <Image Source="Images/document_open.png" />
+            </Button>
+            <Button Name="ButtonRunAlgorithm" ToolTip="Run algorithm" Click="ButtonClustering_Click" Margin="10 0 0 0">
+                <Image Source="Images/run.png" />
+            </Button>
+            <Button Name="ButtonExitProgram" ToolTip="Exit program" Click="MenuExit_Click" Margin="50 0 0 0">
+                <Image Source="Images/application_exit.png" />
+            </Button>
+        </ToolBar>
+
+        <StackPanel Name="StackPanelStatistics" Grid.Row="2">
+            <Grid Name="GridAllStatistics" Style="{StaticResource GridStatistics}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Count: " Grid.Column="0" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="{Binding Count, StringFormat=N0}" Grid.Column="1" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="File name: " Grid.Column="2" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Name="TextBlockFileName" Grid.Column="3" Style="{StaticResource TextBlockStatistics}" />
+            </Grid>
+
             <Grid Name="GridXStatistics" Style="{StaticResource GridStatistics}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100" />
@@ -39,19 +66,19 @@
                     <ColumnDefinition Width="100" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Min X = " Grid.Column="0" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="Min X: " Grid.Column="0" Style="{StaticResource TextBlockStatistics}" />
                 <TextBlock Text="{Binding MinX, StringFormat=N3}" Grid.Column="1" Style="{StaticResource TextBlockStatistics}" />
 
-                <TextBlock Text="Max X = " Grid.Column="2" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="Max X: " Grid.Column="2" Style="{StaticResource TextBlockStatistics}" />
                 <TextBlock Text="{Binding MaxX, StringFormat=N3}" Grid.Column="3" Style="{StaticResource TextBlockStatistics}" />
 
-                <TextBlock Text="Range X = " Grid.Column="4" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="Range X: " Grid.Column="4" Style="{StaticResource TextBlockStatistics}" />
                 <TextBlock Text="{Binding RangeX, StringFormat=N3}" Grid.Column="5" Style="{StaticResource TextBlockStatistics}" />
 
-                <TextBlock Text="Average X = " Grid.Column="6" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="Average X: " Grid.Column="6" Style="{StaticResource TextBlockStatistics}" />
                 <TextBlock Text="{Binding AvgX, StringFormat=N3}" Grid.Column="7" Style="{StaticResource TextBlockStatistics}" />
 
-                <TextBlock Text="Std.dev X = " Grid.Column="8" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="Std.dev X: " Grid.Column="8" Style="{StaticResource TextBlockStatistics}" />
                 <TextBlock Text="{Binding StdDevX, StringFormat=N3}" Grid.Column="9" Style="{StaticResource TextBlockStatistics}" />
             </Grid>
 
@@ -69,24 +96,24 @@
                     <ColumnDefinition Width="100" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Min Y = " Grid.Column="0" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="Min Y: " Grid.Column="0" Style="{StaticResource TextBlockStatistics}" />
                 <TextBlock Text="{Binding MinY, StringFormat=N3}" Grid.Column="1" Style="{StaticResource TextBlockStatistics}" />
 
-                <TextBlock Text="Max Y = " Grid.Column="2" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="Max Y: " Grid.Column="2" Style="{StaticResource TextBlockStatistics}" />
                 <TextBlock Text="{Binding MaxY, StringFormat=N3}" Grid.Column="3" Style="{StaticResource TextBlockStatistics}" />
 
-                <TextBlock Text="Range Y = " Grid.Column="4" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="Range Y: " Grid.Column="4" Style="{StaticResource TextBlockStatistics}" />
                 <TextBlock Text="{Binding RangeY, StringFormat=N3}" Grid.Column="5" Style="{StaticResource TextBlockStatistics}" />
 
-                <TextBlock Text="Average Y = " Grid.Column="6" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="Average Y: " Grid.Column="6" Style="{StaticResource TextBlockStatistics}" />
                 <TextBlock Text="{Binding AvgY, StringFormat=N3}" Grid.Column="7" Style="{StaticResource TextBlockStatistics}" />
 
-                <TextBlock Text="Std.dev Y = " Grid.Column="8" Style="{StaticResource TextBlockStatistics}" />
+                <TextBlock Text="Std.dev Y: " Grid.Column="8" Style="{StaticResource TextBlockStatistics}" />
                 <TextBlock Text="{Binding StdDevY, StringFormat=N3}" Grid.Column="9" Style="{StaticResource TextBlockStatistics}" />
             </Grid>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="2">
+        <StackPanel Orientation="Horizontal" Grid.Row="3">
             <TextBlock Text="Algorithm: " Style="{StaticResource TextBlockAlgorithm}" />
             <ComboBox Name="ComboBoxAlgorithm" SelectedIndex="0" Style="{StaticResource ComboBoxAlgorithm}">
                 <ComboBoxItem Content="K-Means Algorithm"/>
@@ -101,15 +128,26 @@
             </ComboBox>
 
             <TextBlock Text="Number of clusters: " Style="{StaticResource TextBlockAlgorithm}" />
-            <TextBox Name="TextBoxNumberOfClusters" Text="3" Style="{StaticResource TextBoxAlgorithm}" />
+            <TextBox Name="TextBoxNumberOfClusters" Text="3" Style="{StaticResource TextBoxAlgorithm}" LostFocus="TextBoxNumber_LostFocus" />
 
             <TextBlock Text="Maximum iterations: " Style="{StaticResource TextBlockAlgorithm}" />
-            <TextBox Name="TextBoxMaximumIterations" Text="20" Style="{StaticResource TextBoxAlgorithm}" />
+            <TextBox Name="TextBoxMaximumIterations" Text="20" Style="{StaticResource TextBoxAlgorithm}" LostFocus="TextBoxNumber_LostFocus" />
 
             <Button Name="ButtonClustering" Content="Run Algorithm" Click="ButtonClustering_Click" Style="{StaticResource ButtonAlgorithm}" />
         </StackPanel>
 
+        <TabControl Grid.Row="4">
+            <TabItem Header="Chart" Style="{StaticResource TabItemStyle}">
+                <chart:UserControlPointChart Name="PointChart" />
+            </TabItem>
+            
+            <TabItem Header="Algorithm log" Style="{StaticResource TabItemStyle}">
+                <TextBox Name="TextBoxLog" Style="{StaticResource TextBoxLog}" />
+            </TabItem>
 
-        <chart:UserControlPointChart Name="PointChart" Grid.Row="3" />
+            <TabItem Header="Cluster stats" Style="{StaticResource TabItemStyle}">
+                <DataGrid Name="DataGridClusterStats" />
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

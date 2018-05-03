@@ -12,78 +12,78 @@ namespace DataMiner.Utils
         /// <summary>
         /// Error message
         /// </summary>
-        /// <param name="text">A hibaüzenet szövege</param>
+        /// <param name="text">The error message</param>
         public static void MsgError(string text)
         {
             MessageBox.Show(text, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         /// <summary>
-        /// Két soros hibaüzenet küldése
+        /// Two rows error message
         /// </summary>
-        /// <param name="text1">A hibaüzenet első sorának szövege</param>
-        /// <param name="text2">A hibaüzenet második sorának szövege</param>
+        /// <param name="text1">Text of first row</param>
+        /// <param name="text2">Text of second row</param>
         public static void MsgError(string text1, string text2)
         {
             MsgError(string.Format("{0}{1}{2}", text1, Environment.NewLine, text2));
         }
 
         /// <summary>
-        /// Két soros hibaüzenet küldése egy kivétel üzenetével együtt
+        /// Two rows error message
         /// </summary>
-        /// <param name="text">A hibaüzenet szövege</param>
-        /// <param name="ex">A kivétel</param>
+        /// <param name="text">The error message</param>
+        /// <param name="ex">Exception</param>
         public static void MsgError(string text, Exception ex)
         {
             MsgError(text, ex.Message);
         }
 
         /// <summary>
-        /// Figyelmeztető üzenet küldése
+        /// Warning message
         /// </summary>
-        /// <param name="text">A figyelmeztető üzenet szövege</param>
+        /// <param name="text">The warning message</param>
         public static void MsgWarning(string text)
         {
-            MessageBox.Show(text, "Figyelmeztetés", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(text, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         /// <summary>
-        /// Két soros figyelmeztető üzenet küldése
+        /// Two rows warning message
         /// </summary>
-        /// <param name="text1">A figyelmeztető üzenet első sorának szövege</param>
-        /// <param name="text2">A figyelmeztető üzenet második sorának szövege</param>
+        /// <param name="text1">Text of the first row</param>
+        /// <param name="text2">Text of the second row</param>
         public static void MsgWarning(string text1, string text2)
         {
             MsgWarning(string.Format("{0}{1}{2}", text1, Environment.NewLine, text2));
         }
 
         /// <summary>
-        /// Információs üzenet küldése
+        /// Information message
         /// </summary>
-        /// <param name="text">Az információs üzenet szövege</param>
+        /// <param name="text">The information message</param>
         public static void MsgInfo(string text)
         {
-            MessageBox.Show(text, "Információ", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(text, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         /// <summary>
-        /// Két soros információs üzenet küldése
+        /// Two rows information message
         /// </summary>
-        /// <param name="text1">Az információs üzenet első sorának szövege</param>
-        /// <param name="text2">Az információs üzenet második sorának szövege</param>
+        /// <param name="text1">Text of the first row</param>
+        /// <param name="text2">Text of the second row</param>
         public static void MsgInfo(string text1, string text2)
         {
             MsgInfo(string.Format("{0}{1}{2}", text1, Environment.NewLine, text2));
         }
 
         /// <summary>
-        /// Megerősítés (Igen / Nem) kérése
+        /// Confirmation message
         /// </summary>
-        /// <param name="text">A megerősítést kérő üzenet szövege</param>
+        /// <param name="text">The question</param>
         /// <returns></returns>
         public static MessageBoxResult MsgYesNo(string text)
         {
-            return MessageBox.Show(text, "Megerősítés", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            return MessageBox.Show(text, "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
         }
     }
 }
