@@ -43,6 +43,7 @@
     <Compile Include="ClusterDataReader.cs.cs" />
     <Compile Include="ClusterDataReaderFactory.cs" />
     <Compile Include="CsvDataReader.cs" />
+    <Compile Include="CsvReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TxtDataReader.cs" />
   </ItemGroup>
