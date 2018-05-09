@@ -17,7 +17,8 @@ namespace DataMiner.ClusterDataReaders
             switch (ext)
             {
                 case ".csv":
-                    return new CsvDataReader(fileName, clusterData);
+                    //return new CsvDataReader(fileName, clusterData);
+                    return new CsvReader(fileName, clusterData);
 
                 case ".txt":
                     return new TxtDataReader(fileName, clusterData);

@@ -11,7 +11,7 @@ using System.Globalization;
 
 namespace DataMiner.ClusterDataReaders
 {
-    public class CsvReader
+    public class CsvReader : ClusterDataReader
     {
         private int dimensions;
         private bool hasHeader;
@@ -19,7 +19,6 @@ namespace DataMiner.ClusterDataReaders
         private string path;
         private int lineCount;
         private int maxMatchCount;
-        private ClusterData clusterData;
         private int delimFound;
         private int enclFound;
         private string[] delimiter;
@@ -29,10 +28,14 @@ namespace DataMiner.ClusterDataReaders
         private Func<string, string, string, string> getPattern;
         private Func<double[], ClusterPoint> getClusterPoint;
 
-        public CsvReader(string path)
+        public CsvReader(string fileName, ClusterData clusterData) : base(fileName, clusterData)
+        {
+        }
+
+        public override void ReadData()
         {
             dimensions = 2;
-            this.path = path;
+            this.path = this.FileName;
             delimiter = new string[] { ";", ",", "\t", " " };
             enclosing = new string[] { "\"", "'", "" };
             dataPattern = ".*?";
@@ -41,8 +44,9 @@ namespace DataMiner.ClusterDataReaders
             getClusterPoint = data => new ClusterPoint(data[0], data[1]);
             Read();
         }
-        public ClusterData ClusterData => clusterData;
+        
         public bool HasHeader => hasHeader;
+
         public string[] Header
         {
             get
@@ -64,7 +68,7 @@ namespace DataMiner.ClusterDataReaders
         {
             if (!Test()) return;
 
-            ClusterData returnData = new ClusterData();
+            //ClusterData returnData = new ClusterData();
 
             using (StreamReader sr = new StreamReader(path, Encoding.UTF8, true))
             {
@@ -103,11 +107,12 @@ namespace DataMiner.ClusterDataReaders
                         }
                     }
                     ClusterPoint cp = getClusterPoint(point);
-                    returnData.Add(cp);
+                    clusterData.Add(cp);
                 }
             }
-            this.clusterData = returnData;
+            //this.clusterData = returnData;
         }
+
         private bool Test()
         {
             bool validMatchFound = false;

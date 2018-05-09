@@ -39,7 +39,6 @@ namespace DataMiner
 
             if (dlg.ShowDialog() == true)
             {
-                /*
                 clusterData = new ClusterData();
 
                 ClusterDataReader dr = ClusterDataReaderFactory.GetClusterDataReader(dlg.FileName, clusterData);
@@ -48,14 +47,14 @@ namespace DataMiner
                 {
                     WPFMessageBox.MsgError("Hiba történt a file betöltése során!");
                 }
-                /*/
-                CsvReader csvReader = new CsvReader(dlg.FileName);
+             
+                /*CsvReader csvReader = new CsvReader(dlg.FileName);
                 clusterData = csvReader.ClusterData;
                 if (clusterData==null)
                 {
                     WPFMessageBox.MsgError("Hiba történt a file betöltése során!");
-                }
-                //*/
+                }*/
+                
                 TextBlockFileName.Text = dlg.FileName;
                 GridAllStatistics.DataContext = clusterData;
                 GridXStatistics.DataContext = clusterData;
@@ -138,6 +137,10 @@ namespace DataMiner
             catch (NullReferenceException)
             {
                 WPFMessageBox.MsgError("Empty dataset, please load a datafile.");
+            }
+            catch (InvalidOperationException)
+            {
+                WPFMessageBox.MsgError("An empty cluster created. Please run algorithm once more. The value of K is too big?");
             }
             catch (Exception ex)
             {
