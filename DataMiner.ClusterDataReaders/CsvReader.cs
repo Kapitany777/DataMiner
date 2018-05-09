@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 using DataMiner.Clustering;
+using System.Globalization;
 
 
 namespace DataMiner.ClusterDataReaders
@@ -35,8 +36,8 @@ namespace DataMiner.ClusterDataReaders
             delimiter = new string[] { ";", ",", "\t", " " };
             enclosing = new string[] { "\"", "'", "" };
             dataPattern = ".*?";
-            numberPattern = "(?:\\d+(?:\\.\\d+)?)*?";
-            getPattern = (ptn, del, enc) => "(?<=(?:^|(?<!\\\\)" + del + ")" + enc + ")(?<data>" + ptn + ")(?=" + enc + "(?:(?<!\\\\)" + del + "|\n|\\Z))";
+            numberPattern = "(?:\\d+(?:\\.\\d+)?)?";
+            getPattern = (ptn, del, enc) => "(?<=(?:^|" + del + ")" + enc + ")(?<data>" + ptn + ")(?=" + enc + "(?:" + del + "|\n|\\Z))";
             getClusterPoint = data => new ClusterPoint(data[0], data[1]);
             Read();
         }
@@ -94,7 +95,7 @@ namespace DataMiner.ClusterDataReaders
                         match = matchColl[mt].Groups["data"].Value;
                         try
                         {
-                            point[mt] = double.Parse(match);
+                            point[mt] = double.Parse(match, new CultureInfo("en-US"));
                         }
                         catch (Exception ex) when (ex is ArgumentNullException || ex is FormatException || ex is OverflowException)
                         {
