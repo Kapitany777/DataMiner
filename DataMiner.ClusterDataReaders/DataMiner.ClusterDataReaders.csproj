@@ -45,6 +45,7 @@
     <Compile Include="CsvDataReader.cs" />
     <Compile Include="CsvReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TxtReader.cs" />
     <Compile Include="TxtDataReader.cs" />
   </ItemGroup>
   <ItemGroup>

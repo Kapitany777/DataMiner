@@ -17,11 +17,12 @@ namespace DataMiner.ClusterDataReaders
             switch (ext)
             {
                 case ".csv":
-                    //return new CsvDataReader(fileName, clusterData);
-                    return new CsvReader(fileName, clusterData);
+                    CsvReader cr = new CsvReader(fileName, clusterData);
+                    return cr.ReadingCompleted ? cr : null;
 
                 case ".txt":
-                    return new TxtDataReader(fileName, clusterData);
+                    TxtReader tr = new TxtReader(fileName, clusterData);
+                    return tr.ReadingCompleted ? tr : null;
 
                 default:
                     return null;
