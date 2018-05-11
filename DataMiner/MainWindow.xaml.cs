@@ -46,15 +46,8 @@ namespace DataMiner
                 if (dr == null)
                 {
                     WPFMessageBox.MsgError("Hiba történt a file betöltése során!");
+                    return;
                 }
-             
-                /*CsvReader csvReader = new CsvReader(dlg.FileName);
-                clusterData = csvReader.ClusterData;
-                if (clusterData==null)
-                {
-                    WPFMessageBox.MsgError("Hiba történt a file betöltése során!");
-                }*/
-                
                 TextBlockFileName.Text = dlg.FileName;
                 GridAllStatistics.DataContext = clusterData;
                 GridXStatistics.DataContext = clusterData;
