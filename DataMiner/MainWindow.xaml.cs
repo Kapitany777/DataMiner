@@ -133,7 +133,7 @@ namespace DataMiner
             }
             catch (InvalidOperationException)
             {
-                WPFMessageBox.MsgError("An empty cluster created. Please run algorithm once more. The value of K is too big?");
+                WPFMessageBox.MsgError("An empty cluster was created. Please run algorithm once more. The value of K is too big?");
             }
             catch (Exception ex)
             {

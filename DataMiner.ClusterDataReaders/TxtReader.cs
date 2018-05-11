@@ -17,7 +17,7 @@ namespace DataMiner.ClusterDataReaders
         private Func<double[], ClusterPoint> getClusterPoint;
         private bool readingCompleted;
 
-        public bool ReadingCompleted  => readingCompleted;
+        public bool ReadingCompleted => readingCompleted;
 
         public TxtReader(string fileName, ClusterData clusterData) : base(fileName, clusterData)
         {
@@ -46,9 +46,9 @@ namespace DataMiner.ClusterDataReaders
                     line = line.Replace(',', '.');
                     matchColl = Regex.Matches(line, pattern);
                     if (matchColl.Count < dimensions) return;
-                    
+
                     point = new double[dimensions];
-                    
+
                     for (int mt = 0; mt < dimensions; mt++)
                     {
                         match = matchColl[mt].Groups["data"].Value;

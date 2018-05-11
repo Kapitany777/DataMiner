@@ -33,7 +33,7 @@ namespace DataMiner.ClusterDataReaders
         public CsvReader(string fileName, ClusterData clusterData) : base(fileName, clusterData)
         {
         }
-        
+
         public bool ReadingCompleted => readingCompleted;
         public bool DataFound => dataFound;
         public bool HasHeader => hasHeader;
@@ -68,7 +68,7 @@ namespace DataMiner.ClusterDataReaders
             getRgxPattern = (ptn, del, enc) => "(?<=(?:^|" + del + ")" + enc + ")(?<data>" + ptn + ")(?=" + enc + "(?:" + del + "|\n|\\Z))";
             getClusterPoint = data => new ClusterPoint(data[0], data[1]);
         }
-       
+
         public override void ReadData()
         {
             Init();
